@@ -1,7 +1,6 @@
 package com.bezkoder.springjwt.flight.dto;
 
 import com.bezkoder.springjwt.account.dto.UserDto;
-import com.bezkoder.springjwt.account.dto.UserResponseDto;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;

@@ -20,11 +20,9 @@ public class RoleConverter {
 
     public static List<Role> toListEntity(List<RoleDto> dtoList) {
         List<Role> roles = new ArrayList<>();
-        if (!dtoList.isEmpty()) {
-            for (RoleDto dto : dtoList) {
-                roles.add(toEntity(dto));
+        for (RoleDto dto : dtoList) {
+            roles.add(toEntity(dto));
             }
-        }
         return roles;
     }
     public static RoleDto toDto(Role role){

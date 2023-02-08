@@ -1,9 +1,7 @@
 package com.bezkoder.springjwt.account.controllers;
 
 import com.bezkoder.springjwt.account.dto.UserDto;
-import com.bezkoder.springjwt.account.models.User;
-import com.bezkoder.springjwt.account.services.UserDetailsServiceImpl;
-import lombok.AllArgsConstructor;
+import com.bezkoder.springjwt.account.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

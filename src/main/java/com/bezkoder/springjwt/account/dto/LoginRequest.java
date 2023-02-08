@@ -1,4 +1,4 @@
-package com.bezkoder.springjwt.account.dto.request;
+package com.bezkoder.springjwt.account.dto;
 
 import javax.validation.constraints.NotBlank;
 

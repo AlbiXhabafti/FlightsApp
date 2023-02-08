@@ -1,8 +1,9 @@
-package com.bezkoder.springjwt.account.services;
+package com.bezkoder.springjwt.account.services.impl;
 
 import com.bezkoder.springjwt.account.converter.UserConverter;
 import com.bezkoder.springjwt.account.dto.UserDto;
 import com.bezkoder.springjwt.account.repository.RoleRepository;
+import com.bezkoder.springjwt.account.models.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;

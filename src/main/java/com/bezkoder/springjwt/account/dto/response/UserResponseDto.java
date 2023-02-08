@@ -1,4 +1,4 @@
-package com.bezkoder.springjwt.account.dto;
+package com.bezkoder.springjwt.account.dto.response;
 
 import lombok.Data;
 @Data
