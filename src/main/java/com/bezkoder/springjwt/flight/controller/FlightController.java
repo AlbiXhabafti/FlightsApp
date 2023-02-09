@@ -1,5 +1,7 @@
 package com.bezkoder.springjwt.flight.controller;
 
+import com.bezkoder.springjwt.account.security.CurrentUser;
+import com.bezkoder.springjwt.account.security.UserDetailsImpl;
 import com.bezkoder.springjwt.flight.dto.FlightDto;
 import com.bezkoder.springjwt.flight.model.Flight;
 import com.bezkoder.springjwt.flight.repository.FlightRepository;
@@ -26,7 +28,7 @@ public class FlightController {
     }
     @PostMapping(path = "/addFlight")
     public String addFlight(@RequestBody FlightDto flightDto){
-        flightService.addFlight(flightDto);
+
         return flightService.addFlight(flightDto);
     }
 

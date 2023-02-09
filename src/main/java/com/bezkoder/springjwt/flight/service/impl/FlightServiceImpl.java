@@ -1,11 +1,13 @@
 package com.bezkoder.springjwt.flight.service.impl;
 
+import com.bezkoder.springjwt.account.models.User;
 import com.bezkoder.springjwt.flight.converter.FlightConverter;
 import com.bezkoder.springjwt.flight.dto.FlightDto;
 import com.bezkoder.springjwt.flight.model.Flight;
 import com.bezkoder.springjwt.flight.repository.FlightRepository;
 import com.bezkoder.springjwt.flight.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +25,10 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public String addFlight(FlightDto dto) {
-        FlightConverter.toEntity(dto);
+    public String addFlight(FlightDto dto ) {
+    Flight flight = FlightConverter.toEntity(dto);
+
+       flightRepository.save(flight);
         return "new flight is added";
     }
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 @Data
 public class FlightDto {
@@ -22,5 +23,5 @@ public class FlightDto {
 
     private String aClassEnum;
 
-    private List<UserDto> userDtoList;
+    private List<UserDto> userDtoList = new ArrayList<>();
 }

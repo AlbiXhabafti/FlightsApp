@@ -1,10 +1,11 @@
-package com.bezkoder.springjwt.account.models;
+package com.bezkoder.springjwt.account.security;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.bezkoder.springjwt.account.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.account.controllers;
 
 import com.bezkoder.springjwt.account.dto.UserDto;
+import com.bezkoder.springjwt.account.dto.response.UserResponseDto;
 import com.bezkoder.springjwt.account.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,7 +60,7 @@ public class UserController {
         return "User deleted!";
     }
  @GetMapping(path = "/getUserByEmail")
-    public UserDto getUserByEmail(@RequestParam String email ){
+    public UserResponseDto getUserByEmail(@RequestParam String email ){
         return userDetailsService.getUserByEmail(email);
  }
 

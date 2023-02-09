@@ -1,9 +1,11 @@
 package com.bezkoder.springjwt.account.converter;
 
 import com.bezkoder.springjwt.account.dto.UserDto;
+import com.bezkoder.springjwt.account.dto.response.UserResponseDto;
 import com.bezkoder.springjwt.account.models.Role;
 import com.bezkoder.springjwt.account.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -41,6 +43,12 @@ public class UserConverter {
             userList.add(toEntity(user));
         }
         return userList;
+    }
+    public static UserResponseDto toUserDto(User user){
+        UserResponseDto dto = new UserResponseDto();
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        return dto;
     }
 
     }

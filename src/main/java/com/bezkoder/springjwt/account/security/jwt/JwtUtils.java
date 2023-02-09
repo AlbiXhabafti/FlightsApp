@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.bezkoder.springjwt.account.models.UserDetailsImpl;
+import com.bezkoder.springjwt.account.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 @Component

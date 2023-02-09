@@ -2,8 +2,9 @@ package com.bezkoder.springjwt.account.services.impl;
 
 import com.bezkoder.springjwt.account.converter.UserConverter;
 import com.bezkoder.springjwt.account.dto.UserDto;
+import com.bezkoder.springjwt.account.dto.response.UserResponseDto;
 import com.bezkoder.springjwt.account.repository.RoleRepository;
-import com.bezkoder.springjwt.account.models.UserDetailsImpl;
+import com.bezkoder.springjwt.account.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -171,9 +172,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return "User is deleted";
     }
 
-    public UserDto getUserByEmail(String email) {
+    public UserResponseDto getUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
-        UserDto dto = UserConverter.toDto(user);
+        UserResponseDto dto = UserConverter.toUserDto(user);
 
         return dto;
     }

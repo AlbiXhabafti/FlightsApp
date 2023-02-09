@@ -5,7 +5,7 @@ import com.bezkoder.springjwt.account.dto.LoginRequest;
 import com.bezkoder.springjwt.account.dto.UserDto;
 import com.bezkoder.springjwt.account.dto.response.JwtResponse;
 import com.bezkoder.springjwt.account.models.User;
-import com.bezkoder.springjwt.account.models.UserDetailsImpl;
+import com.bezkoder.springjwt.account.security.UserDetailsImpl;
 import com.bezkoder.springjwt.account.repository.RoleRepository;
 import com.bezkoder.springjwt.account.repository.UserRepository;
 import com.bezkoder.springjwt.account.security.jwt.JwtUtils;

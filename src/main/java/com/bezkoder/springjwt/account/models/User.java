@@ -59,5 +59,6 @@ public class User {
   }
 
 
-
+  public User(Long loggedUser) {
+  }
 }
