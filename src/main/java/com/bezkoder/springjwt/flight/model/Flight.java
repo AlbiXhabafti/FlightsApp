@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.flight.model;
 
 import com.bezkoder.springjwt.account.models.User;
+import com.bezkoder.springjwt.client.model.Client;
 import com.bezkoder.springjwt.flight.enums.ClassEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,9 +37,9 @@ public class Flight {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(  name = "booked",
-            joinColumns = @JoinColumn(name = "flight_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users = new ArrayList<>();
+            joinColumns = @JoinColumn(name = "flight_id" , referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id" , referencedColumnName = "id"))
+    private List<Client>client = new ArrayList<>();
 
 
 

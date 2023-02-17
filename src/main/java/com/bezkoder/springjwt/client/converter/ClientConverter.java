@@ -18,6 +18,13 @@ public class ClientConverter {
 
         return client;
     }
+    public static List<Client> toEntityList(List<ClientDto>dtoList){
+        List<Client> clientList = new ArrayList<>();
+        for (ClientDto dto:dtoList){
+            clientList.add(toEntity(dto));
+        }
+        return clientList;
+    }
     public static ClientResponseDto toDto(Client client){
         ClientResponseDto dto = new ClientResponseDto();
         dto.setNid(client.getNid());

@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.flight.controller;
 import com.bezkoder.springjwt.account.security.CurrentUser;
 import com.bezkoder.springjwt.account.security.UserDetailsImpl;
 import com.bezkoder.springjwt.flight.dto.FlightDto;
+import com.bezkoder.springjwt.flight.dto.FlightDtoResponse;
 import com.bezkoder.springjwt.flight.model.Flight;
 import com.bezkoder.springjwt.flight.repository.FlightRepository;
 import com.bezkoder.springjwt.flight.service.FlightService;
@@ -22,14 +23,12 @@ public class FlightController {
     private FlightService flightService;
 
     @GetMapping(path = "/getAllFlights")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public List<FlightDto> getAllFlights(){
+    public List<FlightDtoResponse> getAllFlights(){
         return flightService.getAllFlights();
     }
     @PostMapping(path = "/addFlight")
     public String addFlight(@RequestBody FlightDto flightDto){
-
-        return flightService.addFlight(flightDto);
+        return flightService.createFlight(flightDto);
     }
 
 

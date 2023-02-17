@@ -12,6 +12,9 @@ import com.bezkoder.springjwt.client.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -59,9 +62,10 @@ public class ClientServiceImpl implements ClientService {
     }
     @Override
     public String addClient(ClientDto clientDto) {
+
         Client client = ClientConverter.toEntity(clientDto);
         User user = userRepository.findByEmail(clientDto.getCreatedBy().getEmail());
-        if (user == null){
+        if (user == null ){
             user = UserConverter.toEntity(clientDto.getCreatedBy());
             user.setPassword(passwordEncode.encode(user.getPassword()));
             client.setCreatedBy(user);
@@ -69,14 +73,22 @@ public class ClientServiceImpl implements ClientService {
         }else{
             client.setCreatedBy(user);
         }
-        sendSimpleMail(client.getEmail());
+        if (clientRepository.existsByEmail(client.getEmail())){
+            client.setFullName(clientDto.getFullName());
+            client.setEmail(clientDto.getEmail());
+        }
         clientRepository.save(client);
+
+
+      //  sendSimpleMail(client.getEmail());clientRepository.save(client);
         return "client is registered ";
     }
 
     @Override
-    public List<ClientResponseDto> getAll() {
-        List<Client>clientList = clientRepository.findAll().stream().collect(Collectors.toList());
+    public List<ClientResponseDto> getAll(int page, int size) {
+        Page<Client> allClient = clientRepository.findAll(PageRequest.of(page,size));
+        List<Client>clientList = allClient.getContent();
+
         List<ClientResponseDto>dtoList = ClientConverter.toDtoList(clientList);
         return dtoList;
     }
@@ -85,5 +97,22 @@ public class ClientServiceImpl implements ClientService {
     public String deleteById(Long id) {
         clientRepository.deleteById(id);
         return "client with ID: " +id +" is deleted";
+    }
+
+    @Override
+    public String updateClient(Long id,ClientDto dto ) {
+       Client client = clientRepository.findById(id).get();
+       if (!client.getNid().equals(dto.getNid())){
+           client.setNid(dto.getNid());
+       }
+       if (!client.getEmail().equals(dto.getEmail())){
+           client.setEmail(dto.getEmail());
+       }
+       if (!client.getFullName().equals(dto.getFullName())){
+           client.setFullName(dto.getFullName());
+       }
+       clientRepository.save(client);
+
+        return "Updating Client with id" + id +" is done";
     }
 }
