@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 
@@ -22,10 +23,11 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @Autowired
-    private JavaMailSender mailSender;
+//    @Autowired
+//    private JavaMailSender mailSender;
 
     @PostMapping("/addClient")
+    @RolesAllowed({"ADMIN","USER"})
     public String addClient(@RequestBody ClientDto clientDto){
          logger.info("adding client " +clientDto);
         return clientService.addClient(clientDto);

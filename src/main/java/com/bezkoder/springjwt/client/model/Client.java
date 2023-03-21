@@ -32,7 +32,7 @@ public class Client {
     @Column
     private String nid;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "created_by")
     private User createdBy;
 

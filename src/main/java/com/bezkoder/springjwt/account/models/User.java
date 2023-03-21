@@ -31,15 +31,18 @@ public class User {
 
   @NotBlank
   @Size(max = 20)
+  @Column
   private String username;
 
   @NotBlank
   @Size(max = 50)
   @Email
+  @Column
   private String email;
 
   @NotBlank
   @Size(max = 120)
+  @Column
   private String password;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -47,8 +50,11 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private List<Role> roles = new ArrayList<>();
+
+
   @Column
   private String token;
+
   @Column
   private LocalDateTime tokenCreationDate;
 

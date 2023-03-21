@@ -40,7 +40,7 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Autowired
-    private JavaMailSenderImpl javaMailSender;
+    private JavaMailSender javaMailSender;
 
     @Value("${spring.mail.username}")
     private String sender;
@@ -51,8 +51,8 @@ public class ClientServiceImpl implements ClientService {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom(sender);
             mailMessage.setTo(email);
-            mailMessage.setText(" This message means that you are a dedicated follower of Big Brother ALBANIA #meLuizin  ");
-            mailMessage.setSubject("Lion-Team");
+            mailMessage.setText("Hello,thanks a lot for your choice being client of Flight App ");
+            mailMessage.setSubject("Flight-App");
             // Sending the mail
             javaMailSender.send(mailMessage);
             return "Mail Sent Successfully...";
@@ -77,10 +77,8 @@ public class ClientServiceImpl implements ClientService {
             client.setFullName(clientDto.getFullName());
             client.setEmail(clientDto.getEmail());
         }
+        sendSimpleMail(client.getEmail());
         clientRepository.save(client);
-
-
-      //  sendSimpleMail(client.getEmail());clientRepository.save(client);
         return "client is registered ";
     }
 
