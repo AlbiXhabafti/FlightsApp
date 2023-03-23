@@ -19,6 +19,7 @@ public class UserConverter {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setRoles(RoleConverter.toListEntity(dto.getRoleDto()));
+        user.setFlagDeleted(Boolean.FALSE);
         return user;
     }
     public static UserDto toDto(User user){

@@ -18,13 +18,13 @@ public class UserController {
     private UserDetailsServiceImpl userDetailsService;
 
     @PostMapping(path = "/addUser")
-    @RolesAllowed("ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addUser(@RequestBody UserDto userDto) throws SQLException {
         return userDetailsService.addUser(userDto);
     }
 
     @PutMapping("update/{id}")
-    @RolesAllowed("ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String updateUser(@PathVariable("id") Long id, @RequestBody UserDto userDto) {
        try {
            return userDetailsService.updateUser(userDto, id);
@@ -34,7 +34,7 @@ public class UserController {
 
     }
     @DeleteMapping("/delete/{id}")
-    @RolesAllowed("ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteUser( @PathVariable("id") Long id){
         userDetailsService.deleteUser(id);
         return "User is deleted!";
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/forgot-password")
-    @RolesAllowed({"ADMIN","USER"})
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String forgotPassword(@RequestParam String email) {
 
         String response = userDetailsService.forgotPassword(email);
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @PutMapping("/reset-password")
-    @RolesAllowed("ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String resetPassword(@RequestParam String email,
                                 @RequestParam String password) {
 

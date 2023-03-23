@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.Email;
 import java.util.List;
 import java.util.Properties;

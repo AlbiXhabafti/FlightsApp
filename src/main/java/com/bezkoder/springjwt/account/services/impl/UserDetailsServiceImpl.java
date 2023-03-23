@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bezkoder.springjwt.account.models.User;
 import com.bezkoder.springjwt.account.repository.UserRepository;
 
-import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,30 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return UserDetailsImpl.build(user);
     }
-
-  /*public void updateResetPasswordToken(String token, String email) throws UsernameNotFoundException {
-    User customer = userRepository.findByEmail(email);
-    if (customer != null) {
-      customer.setToken(token);
-      userRepository.save(customer);
-    } else {
-      throw new UsernameNotFoundException("Could not find any customer with the email " + email);
-    }
-  }
-
-  public User getByResetPasswordToken(String token) {
-    return userRepository.findByToken(token);
-  }
-
-  public void updatePassword(User user, String newPassword) {
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    String encodedPassword = passwordEncoder.encode(newPassword);
-    user.setPassword(encodedPassword);
-
-    user.setToken(null);
-    userRepository.save(user);
-  }
-  */
 
     public String forgotPassword(String email) {
 
@@ -134,21 +109,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return diff.toMinutes() >= EXPIRE_TOKEN_AFTER_MINUTES;
     }
 
-    public String addUser(UserDto userDto) throws SQLException {
-        try {
-            if (userRepository.existsByEmail(userDto.getEmail()) != null) {
-                User user = UserConverter.toEntity(userDto);
-                user.setPassword(passwordEncode.encode(user.getPassword()));
-                user.setToken(generateToken());
-                user.setTokenCreationDate(LocalDateTime.now());
-                user.setFlagDeleted(Boolean.FALSE);
-                userRepository.save(user);
-                return "User is registered";
-            }
-        } catch (Exception e) {
-            throw new SQLException("User exist in database");
+    public String addUser(UserDto userDto) {
+        User user = UserConverter.toEntity(userDto);
+        user.setPassword(passwordEncode.encode(userDto.getPassword()));
+        if (userRepository.existsByEmail(userDto.getEmail())){
+            User existingUser = userRepository.findByEmail(userDto.getEmail());
+            user.setId(existingUser.getId());
         }
-        return null;
+        userRepository.save(user);
+
+        return "user is registered";
     }
 
     public String updateUser(UserDto userDto, Long id) {
