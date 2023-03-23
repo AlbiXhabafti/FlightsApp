@@ -16,5 +16,6 @@ public interface ClientRepository extends PagingAndSortingRepository<Client, Lon
     public Client findByNid(String nid);
 
     public boolean existsByEmail(String email);
+    public boolean existsByNid(String nid);
 
 }

@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.client.contoller;
 
 import com.bezkoder.springjwt.client.dto.ClientDto;
+import com.bezkoder.springjwt.client.dto.ClientDtoRequest;
 import com.bezkoder.springjwt.client.dto.ClientResponseDto;
 import com.bezkoder.springjwt.client.service.ClientService;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
@@ -32,6 +33,12 @@ public class ClientController {
          logger.info("adding client " +clientDto);
         return clientService.addClient(clientDto);
     }
+
+    @PostMapping("/create")
+    public String createClient(@RequestBody ClientDtoRequest clientDtoRequest){
+        return clientService.createClient(clientDtoRequest);
+    }
+
 
     @GetMapping("/getAll/{page}/{size}")
     public List<ClientResponseDto>getAll(@PathVariable("page")int page, @PathVariable("size")int size){

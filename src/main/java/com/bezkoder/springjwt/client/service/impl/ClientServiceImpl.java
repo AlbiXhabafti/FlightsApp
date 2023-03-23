@@ -5,6 +5,7 @@ import com.bezkoder.springjwt.account.models.User;
 import com.bezkoder.springjwt.account.repository.UserRepository;
 import com.bezkoder.springjwt.client.converter.ClientConverter;
 import com.bezkoder.springjwt.client.dto.ClientDto;
+import com.bezkoder.springjwt.client.dto.ClientDtoRequest;
 import com.bezkoder.springjwt.client.dto.ClientResponseDto;
 import com.bezkoder.springjwt.client.model.Client;
 import com.bezkoder.springjwt.client.repository.ClientRepository;
@@ -20,6 +21,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import javax.validation.constraints.Email;
 import java.util.List;
@@ -60,27 +62,7 @@ public class ClientServiceImpl implements ClientService {
             return "Error while Sending Mail";
         }
     }
-    @Override
-    public String addClient(ClientDto clientDto) {
 
-        Client client = ClientConverter.toEntity(clientDto);
-        User user = userRepository.findByEmail(clientDto.getCreatedBy().getEmail());
-        if (user == null ){
-            user = UserConverter.toEntity(clientDto.getCreatedBy());
-            user.setPassword(passwordEncode.encode(user.getPassword()));
-            client.setCreatedBy(user);
-
-        }else{
-            client.setCreatedBy(user);
-        }
-        if (clientRepository.existsByEmail(client.getEmail())){
-            client.setFullName(clientDto.getFullName());
-            client.setEmail(clientDto.getEmail());
-        }
-        sendSimpleMail(client.getEmail());
-        clientRepository.save(client);
-        return "client is registered ";
-    }
 
     @Override
     public List<ClientResponseDto> getAll(int page, int size) {
@@ -89,6 +71,25 @@ public class ClientServiceImpl implements ClientService {
 
         List<ClientResponseDto>dtoList = ClientConverter.toDtoList(clientList);
         return dtoList;
+    }
+
+    @Override
+    public String createClient(ClientDtoRequest clientDtoRequest) {
+        Client client = ClientConverter.toClientRequestEntity(clientDtoRequest);
+        User user = userRepository.findByEmail(clientDtoRequest.getUserRequestDto().getEmail());
+        if (user == null){
+            throw new RuntimeException("user doesn't exist, please try again");
+        }
+        if (clientRepository.existsByNid(clientDtoRequest.getNid())){
+            Client existingClient = clientRepository.findByNid(clientDtoRequest.getNid());
+            client.setId(existingClient.getId());
+            client.setFullName(clientDtoRequest.getFullName());
+            client.setEmail(clientDtoRequest.getEmail());
+        }
+        client.setCreatedBy(user);
+        sendSimpleMail(clientDtoRequest.getEmail());
+        clientRepository.save(client);
+        return "Client is registered ";
     }
 
     @Override
@@ -113,4 +114,6 @@ public class ClientServiceImpl implements ClientService {
 
         return "Updating Client with id" + id +" is done";
     }
+
+
 }
