@@ -14,6 +14,7 @@ import java.util.List;
 public interface ClientRepository extends PagingAndSortingRepository<Client, Long> {
 
     public Client findByNid(String nid);
+    public Client findByEmail(String email);
 
     public boolean existsByEmail(String email);
     public boolean existsByNid(String nid);

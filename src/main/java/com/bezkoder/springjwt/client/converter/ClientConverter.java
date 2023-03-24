@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.client.converter;
 import com.bezkoder.springjwt.account.converter.UserConverter;
 import com.bezkoder.springjwt.client.dto.ClientDto;
 import com.bezkoder.springjwt.client.dto.ClientDtoRequest;
+import com.bezkoder.springjwt.client.dto.ClientRequestForFlightDto;
 import com.bezkoder.springjwt.client.dto.ClientResponseDto;
 import com.bezkoder.springjwt.client.model.Client;
 
@@ -20,6 +21,14 @@ public class ClientConverter {
 
         return client;
     }
+    public static Client toFlightEntity(ClientRequestForFlightDto dto){
+        Client client = new Client();
+        client.setEmail(dto.getEmail());
+
+
+        return client;
+    }
+
     public static Client toClientRequestEntity(ClientDtoRequest dto){
         Client client = new Client();
         client.setFullName(dto.getFullName());

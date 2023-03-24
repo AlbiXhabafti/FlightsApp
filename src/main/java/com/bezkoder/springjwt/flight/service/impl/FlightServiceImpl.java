@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,15 +39,19 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    @Transactional
     public String createFlight(FlightDto dto) {
         Flight flight = FlightConverter.toEntity(dto);
 
-        List<Client>clientList = new ArrayList<>();
-        dto.getClientDtoList().stream().forEach(c-> {
-            Client client = ClientConverter.toEntity(c);
 
-            clientList.add(client);
+        List<Client>clientList = new ArrayList<>();
+        dto.getClientRequestForFlightDtos().stream().forEach(c-> {
+
+            Client existingClient = clientRepository.findByEmail(dto.getClientRequestForFlightDtos().stream().
+                    map(e->e.getEmail()).collect(Collectors.toList()).toString());
+            clientList.add(existingClient);
         });
+
         flight.setClient(clientList);
         flightRepository.save(flight);
 
