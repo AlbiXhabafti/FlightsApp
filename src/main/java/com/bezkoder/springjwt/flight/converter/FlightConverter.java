@@ -17,6 +17,7 @@ public class FlightConverter {
         dto.setDestination(flight.getDestination());
         dto.setDepartureTime(flight.getDepartureTime());
         dto.setAClassEnum(String.valueOf(flight.getAClassEnum()));
+
       //  dto.setClientResponseDtos(ClientConverter.toDtoList(flight.getClient()));;
         return dto;
     }

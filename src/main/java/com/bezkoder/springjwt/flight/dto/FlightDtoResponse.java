@@ -26,6 +26,6 @@ public class FlightDtoResponse {
 
     private String aClassEnum;
 
-   // private List<ClientResponseDto> clientResponseDtos = new ArrayList<>();
+    private List<ClientResponseDto> clientResponseDtos = new ArrayList<>();
 
 }

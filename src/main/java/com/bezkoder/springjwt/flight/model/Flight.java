@@ -35,11 +35,9 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private ClassEnum aClassEnum;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    @JoinTable(  name = "booked",
-            joinColumns = @JoinColumn(name = "flight_id" , referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "client_id" , referencedColumnName = "id"))
-    private List<Client>client = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "client_id")
+    private Client client;
 
 
 

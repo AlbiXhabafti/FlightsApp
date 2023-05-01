@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,8 +60,12 @@ public class AuthServiceImpl implements AuthenticationService {
     public String signUp(UserDto userDto){
         User user = UserConverter.toEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setTokenCreationDate(LocalDateTime.now());
+        if (userRepository.existsByUsername(userDto.getUsername())){
+            throw new RuntimeException("username exist in database");
+        }
         userRepository.save(user);
-        return "signUp of new user is done";
+        return "signUp of "+userDto.getUsername()+" with role "+userDto.getRoleDto().stream().map(e->e.getRoleEnum()).collect(Collectors.toList())+" is done  ";
     }
 
 

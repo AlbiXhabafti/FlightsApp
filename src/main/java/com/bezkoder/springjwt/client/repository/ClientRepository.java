@@ -11,10 +11,11 @@ import java.util.List;
 
 
 @Repository
-public interface ClientRepository extends PagingAndSortingRepository<Client, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
     public Client findByNid(String nid);
-    public Client findByEmail(String email);
+
+    public Client findByFullName(String email);
 
     public boolean existsByEmail(String email);
     public boolean existsByNid(String nid);

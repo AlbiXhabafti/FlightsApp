@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.client.dto;
 
 import com.bezkoder.springjwt.account.dto.UserDto;
+import com.bezkoder.springjwt.account.dto.UserRequestDto;
 import lombok.Data;
 
 @Data
@@ -12,6 +13,6 @@ public class ClientDto {
 
     private String nid;
 
-    private UserDto createdBy;
+    private UserRequestDto createdBy;
 
 }

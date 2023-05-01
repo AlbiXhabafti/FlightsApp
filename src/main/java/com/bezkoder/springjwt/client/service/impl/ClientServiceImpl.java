@@ -84,8 +84,6 @@ public class ClientServiceImpl implements ClientService {
         if (clientRepository.existsByNid(clientDtoRequest.getNid())){
             Client existingClient = clientRepository.findByNid(clientDtoRequest.getNid());
             client.setId(existingClient.getId());
-            client.setFullName(clientDtoRequest.getFullName());
-            client.setEmail(clientDtoRequest.getEmail());
         }
         client.setCreatedBy(user);
         sendSimpleMail(clientDtoRequest.getEmail());

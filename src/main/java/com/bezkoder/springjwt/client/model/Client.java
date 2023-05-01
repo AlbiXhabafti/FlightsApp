@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -16,6 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE client SET flag_deleted = true WHERE id=?")
+@Where(clause = "flag_deleted=false")
 public class Client {
     @Id
     @GeneratedValue(generator = "client_id_seq", strategy = GenerationType.SEQUENCE)
@@ -32,7 +34,7 @@ public class Client {
     @Column
     private String nid;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
     @JoinColumn(name = "created_by")
     private User createdBy;
 

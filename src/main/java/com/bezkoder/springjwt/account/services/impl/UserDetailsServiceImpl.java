@@ -74,8 +74,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("email doesn't exist");
         }
         user.setPassword(passwordEncode.encode(password));
-        user.setToken(null);
-        user.setTokenCreationDate(null);
+        user.setToken(generateToken());
+        user.setTokenCreationDate(LocalDateTime.now());
 
         userRepository.save(user);
 
@@ -118,7 +118,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         userRepository.save(user);
 
-        return "user is registered";
+        return "user with username "+userDto.getUsername()+" is appended";
     }
 
     public String updateUser(UserDto userDto, Long id) {
@@ -130,7 +130,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             userRepository.save(existingUser);
 
-            return "User is updated";
+            return "User with username "+ existingUser.getUsername()+" is updated";
         } catch (Exception e) {
             throw new RuntimeException("User with id = " + id + " doesn't exist ");
         }

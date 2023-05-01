@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "FlightApp API", version = "3.0", description = "Flight App Information"))
-public class SpringBootSecurityJwtApplication {
+public class SpringBootDemoApplication {
 
 	public static void main(String[] args) {
-    SpringApplication.run(SpringBootSecurityJwtApplication.class, args);
+    SpringApplication.run(SpringBootDemoApplication.class, args);
 	}
 
 }

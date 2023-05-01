@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE users SET flag_deleted = true WHERE id=?")
+@Where(clause = "flag_deleted=false")
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

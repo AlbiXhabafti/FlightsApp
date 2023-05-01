@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.flight.service.impl;
 import com.bezkoder.springjwt.account.models.User;
 import com.bezkoder.springjwt.account.services.impl.UserDetailsServiceImpl;
 import com.bezkoder.springjwt.client.converter.ClientConverter;
+import com.bezkoder.springjwt.client.dto.ClientRequestForFlightDto;
 import com.bezkoder.springjwt.client.model.Client;
 import com.bezkoder.springjwt.client.repository.ClientRepository;
 import com.bezkoder.springjwt.flight.converter.FlightConverter;
@@ -39,20 +40,12 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    @Transactional
     public String createFlight(FlightDto dto) {
         Flight flight = FlightConverter.toEntity(dto);
+        Client client = clientRepository.findByFullName(dto.getClientRequestForFlightDtos().getFullName());
 
+        flight.setClient(client);
 
-        List<Client>clientList = new ArrayList<>();
-        dto.getClientRequestForFlightDtos().stream().forEach(c-> {
-
-            Client existingClient = clientRepository.findByEmail(dto.getClientRequestForFlightDtos().stream().
-                    map(e->e.getEmail()).collect(Collectors.toList()).toString());
-            clientList.add(existingClient);
-        });
-
-        flight.setClient(clientList);
         flightRepository.save(flight);
 
         return "new flight is added";

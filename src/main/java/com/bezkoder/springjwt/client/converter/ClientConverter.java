@@ -23,7 +23,7 @@ public class ClientConverter {
     }
     public static Client toFlightEntity(ClientRequestForFlightDto dto){
         Client client = new Client();
-        client.setEmail(dto.getEmail());
+        client.setEmail(dto.getFullName());
 
 
         return client;
