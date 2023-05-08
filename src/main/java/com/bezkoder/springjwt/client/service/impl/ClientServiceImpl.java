@@ -10,6 +10,9 @@ import com.bezkoder.springjwt.client.dto.ClientResponseDto;
 import com.bezkoder.springjwt.client.model.Client;
 import com.bezkoder.springjwt.client.repository.ClientRepository;
 import com.bezkoder.springjwt.client.service.ClientService;
+import com.bezkoder.springjwt.flight.dto.FlightDtoRequest;
+import com.bezkoder.springjwt.flight.model.Flight;
+import com.bezkoder.springjwt.flight.repository.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -25,6 +28,8 @@ import org.webjars.NotFoundException;
 
 import javax.annotation.security.RolesAllowed;
 import javax.validation.constraints.Email;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -44,6 +49,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Lazy
+    @Autowired
+    private FlightRepository flightRepository;
 
     @Value("${spring.mail.username}")
     private String sender;
@@ -87,6 +96,11 @@ public class ClientServiceImpl implements ClientService {
             Client existingClient = clientRepository.findByNid(clientDtoRequest.getNid());
             client.setId(existingClient.getId());
         }
+        for (FlightDtoRequest el:clientDtoRequest.getFlightDtoRequests()){
+            Flight flight = flightRepository.findByFlightNumber(el.getFlightNumber());
+            client.setFlightList(Collections.singletonList(flight));
+        }
+
         client.setCreatedBy(user);
         sendSimpleMail(clientDtoRequest.getEmail());
         clientRepository.save(client);

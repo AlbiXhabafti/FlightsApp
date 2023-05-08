@@ -2,6 +2,7 @@ package com.bezkoder.springjwt.client.model;
 
 
 import com.bezkoder.springjwt.account.models.User;
+import com.bezkoder.springjwt.flight.model.Flight;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -41,10 +44,12 @@ public class Client {
     @Column(name = "flag_deleted",columnDefinition = "boolean default false")
     private boolean flagDeleted;
 
-    public Client(Long id, String fullName, String email, String nid) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.nid = nid;
-    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "client_flight",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id"))
+    private List<Flight> flightList = new ArrayList<>();
+
+
+
 }

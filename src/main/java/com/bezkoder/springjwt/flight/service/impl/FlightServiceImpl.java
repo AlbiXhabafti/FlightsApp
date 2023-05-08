@@ -42,9 +42,9 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public String createFlight(FlightDto dto) {
         Flight flight = FlightConverter.toEntity(dto);
-        Client client = clientRepository.findByFullName(dto.getClientRequestForFlightDtos().getFullName());
+     //   Client client = clientRepository.findByFullName(dto.getClientRequestForFlightDtos().getFullName());
 
-        flight.setClient(client);
+        //flight.setClient(client);
 
         flightRepository.save(flight);
 

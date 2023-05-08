@@ -35,10 +35,15 @@ public class Flight {
     @Enumerated(EnumType.STRING)
     private ClassEnum aClassEnum;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @Column(unique = true)
+    private String flightNumber;
 
+//    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "client_id")
+//    private Client client;
+
+    @ManyToMany(mappedBy = "flightList")
+    private List<Client> users = new ArrayList<>();
 
 
 }

@@ -27,6 +27,6 @@ public class FlightDto {
 
     private String aClassEnum;
 
-    private ClientRequestForFlightDto clientRequestForFlightDtos ;
+   // private ClientRequestForFlightDto clientRequestForFlightDtos ;
 
 }

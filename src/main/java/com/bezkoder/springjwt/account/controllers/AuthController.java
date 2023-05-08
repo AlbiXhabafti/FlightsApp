@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.bezkoder.springjwt.account.dto.UserDto;
 import com.bezkoder.springjwt.account.services.impl.AuthServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +21,7 @@ import com.bezkoder.springjwt.account.dto.response.JwtResponse;
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
+@Slf4j
 public class AuthController {
 
   @Autowired
@@ -27,8 +29,8 @@ public class AuthController {
 
 
   @PostMapping("/signin")
-  public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-    return ResponseEntity.ok(authService.signIn(loginRequest));
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    return  ResponseEntity.ok(authService.signIn(loginRequest));
   }
 
   @PostMapping("/signup")
