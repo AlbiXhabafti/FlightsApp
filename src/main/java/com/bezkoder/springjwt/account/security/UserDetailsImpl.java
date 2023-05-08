@@ -1,5 +1,6 @@
 package com.bezkoder.springjwt.account.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,9 @@ public class UserDetailsImpl implements UserDetails {
     this.email = email;
     this.password = password;
     this.authorities = authorities;
+  }
+
+  public UserDetailsImpl(String email, String password, ArrayList<Object> objects) {
   }
 
   public static UserDetailsImpl build(User user) {

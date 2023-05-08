@@ -50,4 +50,11 @@ public class FlightServiceImpl implements FlightService {
 
         return "new flight is added";
     }
+
+    @Override
+    public String deleteById(Long id) {
+        flightRepository.deleteById(id);
+        return "client with ID: " +id +" is deleted";
+
+    }
 }

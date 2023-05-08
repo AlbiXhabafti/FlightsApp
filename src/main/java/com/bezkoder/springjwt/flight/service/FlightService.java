@@ -8,4 +8,5 @@ import java.util.List;
 public interface FlightService {
     public List<FlightDtoResponse> getAllFlights();
     public String createFlight(FlightDto flightDto);
-}
+
+    public String deleteById(Long id);}

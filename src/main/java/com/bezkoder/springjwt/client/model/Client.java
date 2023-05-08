@@ -40,4 +40,11 @@ public class Client {
 
     @Column(name = "flag_deleted",columnDefinition = "boolean default false")
     private boolean flagDeleted;
+
+    public Client(Long id, String fullName, String email, String nid) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.nid = nid;
+    }
 }

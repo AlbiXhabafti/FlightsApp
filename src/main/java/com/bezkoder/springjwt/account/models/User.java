@@ -69,4 +69,7 @@ public class User {
 
   public User(Long loggedUser) {
   }
+
+  public <T> User(String username, String password, List<T> user) {
+  }
 }

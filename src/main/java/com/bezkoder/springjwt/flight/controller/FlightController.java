@@ -27,8 +27,14 @@ public class FlightController {
         return flightService.getAllFlights();
     }
     @PostMapping(path = "/addFlight")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public String addFlight(@RequestBody FlightDto flightDto){
         return flightService.createFlight(flightDto);
+    }
+    @DeleteMapping("/deleteById/{id}")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    public String deleteClientById(@PathVariable(name = "id")Long id){
+        return flightService.deleteById(id);
     }
 
 

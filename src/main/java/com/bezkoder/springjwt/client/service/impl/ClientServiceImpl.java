@@ -49,6 +49,8 @@ public class ClientServiceImpl implements ClientService {
     private String sender;
 
 
+
+
     public String sendSimpleMail(String email) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -111,7 +113,7 @@ public class ClientServiceImpl implements ClientService {
        }
        clientRepository.save(client);
 
-        return "Updating Client with id" + id +" is done";
+        return "Updating Client with id " + id +" is done";
     }
 
 
